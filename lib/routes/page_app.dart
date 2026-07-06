@@ -4,4 +4,5 @@ class AppPage {
   static final PRODUCTS = "/products";
   static final ADD_PRODUCT = "/add_product";
   static final UPDATE_PRODUCT = "/UPDATE_PRODUCT";
+  static final CART = "/CART";
 }

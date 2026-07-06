@@ -16,4 +16,8 @@ class CartService extends GetxService {
   Future<void> addToListCart(CartModel cartModel) async {
     await cartBox.put(cartModel.id, cartModel);
   }
+
+  Future<void> removeCart(int id) async {
+    await cartBox.delete(id);
+  }
 }

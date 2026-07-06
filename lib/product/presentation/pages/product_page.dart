@@ -63,7 +63,7 @@ class ProductPage extends GetView<ProductController> {
 
           Expanded(
             child: Obx(() {
-              if (controller.isProductLoading.value) {
+              if (controller.isLoading.value) {
                 return Center(child: CircularProgressIndicator());
               } else if (controller.isError.value) {
                 return Center(

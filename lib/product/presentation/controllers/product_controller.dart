@@ -21,11 +21,7 @@ class ProductController extends GetxController {
   final addKeyForm = GlobalKey<FormState>();
   final updateKeyForm = GlobalKey<FormState>();
 
-  final isProductLoading = false.obs;
-  final isCategoryLoading = false.obs;
-  final isAddProductLoading = false.obs;
-  final isUpdateProductLoading = false.obs;
-  final isRemoveProductLoading = false.obs;
+  final isLoading = false.obs;
   final isError = false.obs;
 
   final productList = <Product>[];
@@ -50,11 +46,11 @@ class ProductController extends GetxController {
     this._getCategoriesUseCase,
   );
   @override
-  void onInit() {
+  void onInit() async {
     // TODO: implement onInit
     super.onInit();
-    loadProductList();
-    loadCategoriesList();
+    await loadProductList();
+    await loadCategoriesList();
     ever(selectedCategory, (selectedCategory) {
       loadProductList();
     });
@@ -97,8 +93,8 @@ class ProductController extends GetxController {
     }
   }
 
-  void loadProductList() async {
-    isProductLoading.value = true;
+  Future<void> loadProductList() async {
+    isLoading.value = true;
     isError.value = false;
     errorMessage.value = null;
     try {
@@ -118,13 +114,13 @@ class ProductController extends GetxController {
       isError.value = true;
       errorMessage.value = "Danh sách sản phẩm trống";
     } finally {
-      isProductLoading.value = false;
+      isLoading.value = false;
     }
   }
 
-  void loadCategoriesList() async {
-    if (isCategoryLoading.value) return;
-    isCategoryLoading.value = true;
+  Future<void> loadCategoriesList() async {
+    if (isLoading.value) return;
+    isLoading.value = true;
     isError.value = false;
     errorMessage.value = null;
     try {
@@ -136,16 +132,26 @@ class ProductController extends GetxController {
       isError.value = true;
       errorMessage.value = "Danh mục trống";
     } finally {
-      isCategoryLoading.value = false;
+      isLoading.value = false;
     }
   }
 
-  Future<void> addProduct(Product newProduct) async {
-    if (isAddProductLoading.value) return;
-    isAddProductLoading.value = true;
+  Future<void> addProduct() async {
+    if (isLoading.value) return;
+    isLoading.value = true;
     isError.value = false;
     errorMessage.value = null;
     try {
+      final newProduct = Product(
+        999,
+        nameEditingController.text,
+        codeEditingController.text,
+        double.parse(priceEditingController.text),
+        int.parse(stockEditingController.text),
+        selectedCategory.value!,
+        descriptionEditingController.text,
+        imageEditingController.text,
+      );
       final response = await _addProductUseCase(newProduct);
       Get.back();
       Get.snackbar(
@@ -168,13 +174,13 @@ class ProductController extends GetxController {
         duration: Duration(seconds: 2),
       );
     } finally {
-      isAddProductLoading.value = false;
+      isLoading.value = false;
     }
   }
 
-  void removeProduct(int id) async {
-    if (isRemoveProductLoading.value) return;
-    isRemoveProductLoading.value = true;
+  Future<void> removeProduct(int id) async {
+    if (isLoading.value) return;
+    isLoading.value = true;
     isError.value = false;
     errorMessage.value = null;
     try {
@@ -199,17 +205,27 @@ class ProductController extends GetxController {
         duration: Duration(seconds: 2),
       );
     } finally {
-      isRemoveProductLoading.value = false;
+      isLoading.value = false;
     }
   }
 
-  Future<void> updateProduct(Product currentProduct) async {
-    if (isUpdateProductLoading.value) return;
-    isUpdateProductLoading.value = true;
+  Future<void> updateProduct() async {
+    if (isLoading.value) return;
+    isLoading.value = true;
     isError.value = false;
     errorMessage.value = null;
     try {
-      await _updateProductUseCase(currentProduct);
+      final updateProduct = Product(
+        idProduct!,
+        nameEditingController.text,
+        codeEditingController.text,
+        double.parse(priceEditingController.text),
+        int.parse(stockEditingController.text),
+        selectedCategory.value!,
+        descriptionEditingController.text,
+        imageEditingController.text,
+      );
+      await _updateProductUseCase(updateProduct);
       Get.back();
       Get.snackbar(
         "Thành công",
@@ -230,7 +246,7 @@ class ProductController extends GetxController {
         duration: Duration(seconds: 2),
       );
     } finally {
-      isUpdateProductLoading.value = false;
+      isLoading.value = false;
     }
   }
 }

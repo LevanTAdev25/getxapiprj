@@ -28,9 +28,7 @@ class AddProductPage extends GetView<ProductController> {
           children: [
             Form(
               key: controller.addKeyForm,
-              child: BaseForm(
-                baseFormState: controller.isAddProductLoading.value,
-              ),
+              child: BaseForm(baseFormState: controller.isLoading.value),
             ),
 
             ElevatedButton(
@@ -40,21 +38,11 @@ class AddProductPage extends GetView<ProductController> {
                 shadowColor: Colors.grey,
                 backgroundColor: Colors.black,
               ),
-              onPressed: controller.isAddProductLoading.value
+              onPressed: controller.isLoading.value
                   ? null
                   : () async {
                       if (controller.addKeyForm.currentState!.validate()) {
-                        final product = Product(
-                          999,
-                          controller.nameEditingController.text,
-                          controller.codeEditingController.text,
-                          double.parse(controller.priceEditingController.text),
-                          int.parse(controller.stockEditingController.text),
-                          controller.selectedCategory.value!,
-                          controller.descriptionEditingController.text,
-                          controller.imageEditingController.text,
-                        );
-                        await controller.addProduct(product);
+                        await controller.addProduct();
                         controller.selectedCategory.value = null;
                       }
                     },
