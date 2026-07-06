@@ -1,3 +1,6 @@
+import 'package:prjgetxproduct/cart/domain/entities/cart.dart';
+
 abstract class CartRepository {
-  Future<void> Cart();
+  List<Cart> getCartList();
+  Future<void> removeCart(int id);
 }

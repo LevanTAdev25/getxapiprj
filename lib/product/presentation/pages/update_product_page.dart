@@ -22,26 +22,16 @@ class UpdateProductPage extends GetView<ProductController> {
           key: controller.updateKeyForm,
           child: Column(
             children: [
-              BaseForm(baseFormState: controller.isUpdateProductLoading.value),
+              BaseForm(baseFormState: controller.isLoading.value),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   fixedSize: Size(300, 50),
                 ),
-                onPressed: controller.isUpdateProductLoading.value
+                onPressed: controller.isLoading.value
                     ? null
                     : () async {
-                        final updateProduct = Product(
-                          controller.idProduct!,
-                          controller.nameEditingController.text,
-                          controller.codeEditingController.text,
-                          double.parse(controller.priceEditingController.text),
-                          int.parse(controller.stockEditingController.text),
-                          controller.selectedCategory.value!,
-                          controller.descriptionEditingController.text,
-                          controller.imageEditingController.text,
-                        );
-                        await controller.updateProduct(updateProduct);
+                        await controller.updateProduct();
                         controller.selectedCategory.value = null;
                       },
                 child: const Text(

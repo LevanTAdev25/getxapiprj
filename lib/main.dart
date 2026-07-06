@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:prjgetxproduct/login/data/models/login_model.dart';
 
 import 'package:prjgetxproduct/routes/page_route.dart';
 import 'package:prjgetxproduct/service/auth_service.dart';
@@ -8,6 +9,7 @@ import 'package:prjgetxproduct/service/auth_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  Hive.registerAdapter(LoginModelAdapter());
   await Get.putAsync<AuthService>(() => AuthService().init(), permanent: true);
   runApp(const MyApp());
 }

@@ -13,10 +13,10 @@ import 'package:prjgetxproduct/service/cart_service.dart';
 class ProductBinding extends Bindings {
   @override
   void dependencies() async {
-    await Get.putAsync<CartService>(
-      () => CartService().init(),
-      permanent: true,
-    );
+    // await Get.putAsync<CartService>(
+    //   () => CartService().init(),
+    //   permanent: true,
+    // );
     Get.lazyPut<ProductsRemoteDatasource>(() => ProductsRemoteDatasourceImpl());
     Get.lazyPut<ProductRepository>(() => ProductRepositoryImpl(Get.find()));
     Get.lazyPut<AddProductUseCase>(() => AddProductUseCase(Get.find()));

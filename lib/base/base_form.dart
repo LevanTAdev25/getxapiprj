@@ -14,181 +14,117 @@ class BaseForm extends GetView<ProductController> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextFormField(
-            enabled: !baseFormState,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Tên không sản phẩm không được để trống";
-              }
-              return null;
-            },
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+          _buildTextField(
+            label: "Tên sản phẩm",
             controller: controller.nameEditingController,
-            decoration: InputDecoration(
-              label: const Text("Tên sản phẩm"),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-            ),
+            emptyError: "Tên sản phẩm không được để trống",
           ),
-          SizedBox(height: 10),
-          TextFormField(
-            enabled: !baseFormState,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Mã sản phẩm không được để trống";
-              }
-              return null;
-            },
+          _buildTextField(
+            label: "Mã sản phẩm",
             controller: controller.codeEditingController,
-            decoration: InputDecoration(
-              label: const Text("Mã sản phẩm"),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-            ),
+            emptyError: "Mã sản phẩm không được để trống",
           ),
-          SizedBox(height: 10),
-          TextFormField(
-            enabled: !baseFormState,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Giá sản phẩm không được để trống";
-              }
-              if (double.tryParse(value) == null) {
-                return "Nhập đúng định dạng giá tiền";
-              }
-              if (double.tryParse(value) != null && double.parse(value) < 0) {
-                return "Giá tiền không được bé hơn 0";
-              }
-              return null;
-            },
+
+          _buildTextField(
+            label: "Giá sản phẩm",
             controller: controller.priceEditingController,
-            decoration: InputDecoration(
-              label: const Text("Giá sản phẩm"),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-            ),
+            emptyError: "Giá sản phẩm không được để trống",
+            isNumber: true,
+            numberError: "Nhập đúng định dạng giá tiền",
+            negativeError: "Giá tiền không được bé hơn 0",
           ),
-          SizedBox(height: 10),
-          TextFormField(
-            enabled: !baseFormState,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Số lượng sản phẩm không được để trống";
-              }
-              if (double.tryParse(value) == null) {
-                return "Nhập đúng định dạng số lượng sản phẩm";
-              }
-              if (double.tryParse(value) != null && double.parse(value) < 0) {
-                return "Số lượng sản phẩm không được bé hơn 0";
-              }
-              return null;
-            },
+          _buildTextField(
+            label: "Số lượng sản phẩm",
             controller: controller.stockEditingController,
-            decoration: InputDecoration(
-              label: const Text("Số lượng sản phẩm"),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-            ),
+            emptyError: "Số lượng sản phẩm không được để trống",
+            isNumber: true,
+            numberError: "Nhập đúng định dạng số lượng sản phẩm",
+            negativeError: "Số lượng sản phẩm không được bé hơn 0",
           ),
-          SizedBox(height: 10),
-          TextFormField(
-            enabled: !baseFormState,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Mô tả không được để trống";
-              }
-              return null;
-            },
+
+          _buildTextField(
+            label: "Mô tả",
             controller: controller.descriptionEditingController,
-            decoration: InputDecoration(
-              label: const Text("Mô tả"),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-            ),
+            emptyError: "Mô tả không được để trống",
           ),
-          SizedBox(height: 10),
-          TextFormField(
-            enabled: !baseFormState,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Link ảnh không được để trống";
-              }
-              return null;
-            },
+          _buildTextField(
+            label: "Link ảnh",
             controller: controller.imageEditingController,
-            decoration: InputDecoration(
-              label: const Text("Link ảnh"),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.black),
-              ),
-            ),
+            emptyError: "Link ảnh không được để trống",
           ),
+
+          const SizedBox(height: 10),
           Obx(() {
-            return Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              color: Colors.white,
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<Category>(
-                  value:
-                      controller.selectedCategory.value ??
-                      controller.categoriesList.first,
-                  isExpanded: true,
-                  items: controller.categoriesList.map((category) {
-                    return DropdownMenuItem<Category>(
-                      value: category,
-                      child: Text(category.name),
-                    );
-                  }).toList(),
-                  onChanged: baseFormState
-                      ? null
-                      : (value) {
-                          controller.selectedCategory.value = value!;
-                        },
-                ),
-              ),
-            );
+            return _buildCategoryDropDown();
           }),
         ],
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required String label,
+    required TextEditingController controller,
+    required String emptyError,
+    bool isNumber = false,
+    String? numberError,
+    String? negativeError,
+  }) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: TextFormField(
+        enabled: !baseFormState,
+        controller: controller,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        keyboardType: isNumber
+            ? TextInputType.numberWithOptions()
+            : TextInputType.text,
+        validator: (value) {
+          if (value == null || value.isEmpty) return emptyError;
+          if (isNumber) {
+            final numValue = double.tryParse(value);
+            if (numValue == null) return numberError;
+            if (numValue < 0) return negativeError;
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          labelText: label,
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          enabledBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderSide: BorderSide(color: Colors.black),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryDropDown() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      color: Colors.white,
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<Category>(
+          value:
+              controller.selectedCategory.value ??
+              controller.categoriesList.first,
+          isExpanded: true,
+          items: controller.categoriesList.map((category) {
+            return DropdownMenuItem<Category>(
+              value: category,
+              child: Text(category.name),
+            );
+          }).toList(),
+          onChanged: baseFormState
+              ? null
+              : (value) {
+                  controller.selectedCategory.value = value!;
+                },
+        ),
       ),
     );
   }
