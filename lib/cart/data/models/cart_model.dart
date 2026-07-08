@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:prjgetxproduct/cart/domain/entities/cart.dart';
 import 'package:prjgetxproduct/product/data/models/category_model.dart';
 part 'cart_model.g.dart';
 
@@ -20,6 +21,8 @@ class CartModel {
   final String description;
   @HiveField(7)
   final String image;
+  @HiveField(8)
+  final int quantity;
   CartModel(
     this.id,
     this.name,
@@ -29,5 +32,33 @@ class CartModel {
     this.categoryModel,
     this.description,
     this.image,
+    this.quantity,
   );
+  static CartModel mapToCartModel(Cart cart) {
+    return CartModel(
+      cart.id,
+      cart.name,
+      cart.code,
+      cart.price,
+      cart.stock,
+      CategoryModel(cart.category.id, cart.category.name),
+      cart.description,
+      cart.image,
+      1,
+    );
+  }
+
+  CartModel copyWith({int? quantity}) {
+    return CartModel(
+      id,
+      name,
+      code,
+      price,
+      stock,
+      categoryModel,
+      description,
+      image,
+      quantity ?? this.quantity,
+    );
+  }
 }

@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:prjgetxproduct/api/config_api.dart';
+import 'package:prjgetxproduct/base/params/get_pagination_params.dart';
 import 'package:prjgetxproduct/exception/unauthorized_exception.dart';
-import 'package:prjgetxproduct/product/data/models/category_model.dart';
-import 'package:prjgetxproduct/product/data/models/product_model.dart';
+import 'package:prjgetxproduct/product/data/models/models_src.dart';
 
 abstract class ProductsRemoteDatasource {
-  Future<List<ProductModel>> getProductModelList();
+  Future<List<ProductModel>> getProductModelList(
+    GetPaginationParams getPaginationParams,
+  );
   Future<void> addProductModel(ProductModel newProductModel);
   Future<void> removeProductModel(int id);
   Future<void> updateProductModel(ProductModel productModel);
@@ -30,13 +32,22 @@ class ProductsRemoteDatasourceImpl implements ProductsRemoteDatasource {
   }
 
   @override
-  Future<List<ProductModel>> getProductModelList() async {
+  Future<List<ProductModel>> getProductModelList(
+    GetPaginationParams getPaginationParams,
+  ) async {
     try {
-      final response = await DataApi().dio.get("/products");
+      final page = getPaginationParams.page;
+      final limit = getPaginationParams.limit;
+      final response = await DataApi().dio.get(
+        "/products",
+        queryParameters: {"page": page, "limit": limit},
+      );
       final List<ProductModel> productList = [];
-      for (final productJson in response.data['data']) {
-        final productModel = ProductModel.fromJson(productJson);
-        productList.add(productModel);
+      if (response.data['data'] != null) {
+        for (final productJson in response.data['data']) {
+          final productModel = ProductModel.fromJson(productJson);
+          productList.add(productModel);
+        }
       }
       return productList;
     } on DioException catch (e) {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:prjgetxproduct/base/base_form.dart';
-import 'package:prjgetxproduct/product/domain/entities/product.dart';
 import 'package:prjgetxproduct/product/presentation/controllers/product_controller.dart';
 
 class UpdateProductPage extends GetView<ProductController> {
@@ -22,27 +21,16 @@ class UpdateProductPage extends GetView<ProductController> {
           key: controller.updateKeyForm,
           child: Column(
             children: [
-              BaseForm(baseFormState: controller.isUpdateProductLoading.value),
+              BaseForm(baseFormState: controller.isLoading.value),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   fixedSize: Size(300, 50),
                 ),
-                onPressed: controller.isUpdateProductLoading.value
+                onPressed: controller.isLoading.value
                     ? null
                     : () async {
-                        final updateProduct = Product(
-                          controller.idProduct!,
-                          controller.nameEditingController.text,
-                          controller.codeEditingController.text,
-                          double.parse(controller.priceEditingController.text),
-                          int.parse(controller.stockEditingController.text),
-                          controller.selectedCategory.value!,
-                          controller.descriptionEditingController.text,
-                          controller.imageEditingController.text,
-                        );
-                        await controller.updateProduct(updateProduct);
-                        controller.selectedCategory.value = null;
+                        await controller.updateProduct();
                       },
                 child: const Text(
                   "Sửa sản phẩm",
