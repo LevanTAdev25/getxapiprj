@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prjgetxproduct/routes/page_app.dart';
 import 'package:prjgetxproduct/service/auth_service.dart';
+import 'package:prjgetxproduct/service/cart_service.dart';
 
 class BaseUnauthorized {
   static void handleUnauthorized() async {
     final authService = Get.find<AuthService>();
+    final cartService = Get.find<CartService>();
     await authService.clearToken();
+    await cartService.clearCart();
     Get.snackbar(
       "Phiên đăng nhập hết hạn",
       "Vui lòng đăng nhập lại",

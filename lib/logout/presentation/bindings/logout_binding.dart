@@ -9,7 +9,7 @@ class LogoutBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<LogoutLocalDatasource>(
-      () => LogoutLocalDatasoureImpl(Get.find()),
+      () => LogoutLocalDatasoureImpl(Get.find(), Get.find()),
     );
     Get.lazyPut<LogoutRepository>(() => LogoutRepositoryImpl(Get.find()));
     Get.lazyPut<LogoutUseCase>(() => LogoutUseCase(Get.find()));

@@ -8,6 +8,9 @@ class LoginController extends GetxController {
   final LoginUseCase _loginUseCase;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final usernameFocusNode = FocusNode();
+  final passwordFocusNode = FocusNode();
+  final keyLoginForm = GlobalKey<FormState>();
   final loginSuccess = false.obs;
   final isLoading = false.obs;
   LoginController(this._loginUseCase);
@@ -36,6 +39,8 @@ class LoginController extends GetxController {
   void onClose() {
     usernameController.dispose();
     passwordController.dispose();
+    usernameFocusNode.dispose();
+    passwordFocusNode.dispose();
     super.onClose();
   }
 

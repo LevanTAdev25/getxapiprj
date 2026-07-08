@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:prjgetxproduct/base/base_form.dart';
-import 'package:prjgetxproduct/product/domain/entities/product.dart';
 import 'package:prjgetxproduct/product/presentation/controllers/product_controller.dart';
 
 class UpdateProductPage extends GetView<ProductController> {
@@ -32,7 +31,6 @@ class UpdateProductPage extends GetView<ProductController> {
                     ? null
                     : () async {
                         await controller.updateProduct();
-                        controller.selectedCategory.value = null;
                       },
                 child: const Text(
                   "Sửa sản phẩm",

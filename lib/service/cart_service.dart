@@ -10,7 +10,7 @@ class CartService extends GetxService {
   }
 
   List<CartModel> getListCartModel() {
-    return cartBox.values.toList().isEmpty ? cartBox.values.toList() : [];
+    return cartBox.values.toList();
   }
 
   Future<void> addToListCart(CartModel cartModel) async {
@@ -19,5 +19,9 @@ class CartService extends GetxService {
 
   Future<void> removeCart(int id) async {
     await cartBox.delete(id);
+  }
+
+  Future<void> clearCart() async {
+    await cartBox.clear();
   }
 }

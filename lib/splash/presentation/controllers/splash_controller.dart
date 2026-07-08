@@ -11,7 +11,7 @@ class SplashController extends GetxController {
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
     if (isLoggedIn()) {
       Get.offNamed(AppPage.PRODUCTS);
