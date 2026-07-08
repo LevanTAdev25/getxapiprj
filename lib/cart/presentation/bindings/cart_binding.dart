@@ -2,10 +2,7 @@ import 'package:get/get.dart';
 import 'package:prjgetxproduct/cart/data/datasources/cart_local_datasource.dart';
 import 'package:prjgetxproduct/cart/data/repositories/cart_repository_impl.dart';
 import 'package:prjgetxproduct/cart/domain/repositories/cart_repository.dart';
-import 'package:prjgetxproduct/cart/domain/usecase/decrease_cart_usecase.dart';
-import 'package:prjgetxproduct/cart/domain/usecase/get_cart_list_usecase.dart';
-import 'package:prjgetxproduct/cart/domain/usecase/increase_cart_usecase.dart';
-import 'package:prjgetxproduct/cart/domain/usecase/remove_cart_usecase.dart';
+import 'package:prjgetxproduct/cart/domain/usecase/cart_usecase_src.dart';
 import 'package:prjgetxproduct/cart/presentation/controllers/cart_controller.dart';
 
 class CartBinding extends Bindings {
