@@ -31,7 +31,7 @@ class LoginRemoteDatasourceImpl implements LoginRemoteDatasource {
         final message = e.response?.data['message'] ?? "Lỗi khi xử lý dữ liệu";
         throw Exception(message);
       }
-      rethrow;
+      throw Exception("Lỗi kết nối mạng hoặc máy chủ server có vấn đề");
     }
   }
 

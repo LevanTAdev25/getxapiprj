@@ -176,7 +176,6 @@ class ProductController extends GetxController {
     } on UnauthorizedException {
       BaseUnauthorized.handleUnauthorized();
     } catch (e) {
-      print("Error loading products: $e");
       isError.value = true;
       errorMessage.value = "Danh sách sản phẩm trống";
     } finally {
@@ -194,7 +193,6 @@ class ProductController extends GetxController {
     } on UnauthorizedException {
       BaseUnauthorized.handleUnauthorized();
     } catch (e) {
-      print("Error loading categories: $e");
       isError.value = true;
       errorMessage.value = "Danh mục trống";
     } finally {
@@ -222,7 +220,6 @@ class ProductController extends GetxController {
     } on UnauthorizedException {
       BaseUnauthorized.handleUnauthorized();
     } catch (e) {
-      print("Error loading products: $e");
       isError.value = true;
       errorMessage.value = "Danh sách sản phẩm trống";
     } finally {
@@ -358,6 +355,7 @@ class ProductController extends GetxController {
       product.category,
       product.description,
       product.image,
+      1,
     );
     await _addToCartUseCase(cart);
     countCartItem();

@@ -4,6 +4,8 @@ import 'package:prjgetxproduct/service/cart_service.dart';
 abstract class CartLocalDatasource {
   List<CartModel> getCartModelList();
   Future<void> removeCart(int id);
+  Future<void> increaseCart(CartModel cartModel);
+  Future<void> decreaseCart(CartModel cartModel);
 }
 
 class CartLocalDatasourceImpl implements CartLocalDatasource {
@@ -17,5 +19,15 @@ class CartLocalDatasourceImpl implements CartLocalDatasource {
   @override
   Future<void> removeCart(int id) async {
     await _cartService.removeCart(id);
+  }
+
+  @override
+  Future<void> decreaseCart(CartModel cartModel) async {
+    await _cartService.decreaseCart(cartModel);
+  }
+
+  @override
+  Future<void> increaseCart(CartModel cartModel) async {
+    await _cartService.addToListCart(cartModel);
   }
 }

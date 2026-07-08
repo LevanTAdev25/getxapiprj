@@ -16,6 +16,11 @@ class ProductLocalDatasourceImpl extends ProductLocalDatasource {
 
   @override
   Future<int> countCartItem() async {
-    return await _cartService.getListCartModel().length;
+    final listCartItem = await _cartService.getListCartModel();
+    int count = 0;
+    for (final i in listCartItem) {
+      count += i.quantity;
+    }
+    return count;
   }
 }

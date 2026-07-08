@@ -8,6 +8,12 @@ class CartPage extends GetView<CartController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+        ),
         title: const Text(
           "Sản phẩm trong giỏ hàng",
           style: TextStyle(color: Colors.white),
@@ -55,21 +61,81 @@ class CartPage extends GetView<CartController> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: Text(
-                  "${product.price}đ",
+                  "${controller.priceFormatter.format(product.price * product.quantity)}đ",
                   style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                trailing: IconButton(
-                  onPressed: () async {
-                    controller.removeCart(product.id);
-                  },
-                  icon: Icon(Icons.delete),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        controller.decreaseCart(product);
+                      },
+                      icon: Icon(Icons.remove),
+                    ),
+
+                    Text("${product.quantity}"),
+
+                    IconButton(
+                      onPressed: () {
+                        controller.increaseCart(product);
+                      },
+                      icon: Icon(Icons.add),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        controller.removeCart(product.id);
+                      },
+                      icon: Icon(Icons.delete),
+                    ),
+                  ],
                 ),
               ),
             );
           },
+        );
+      }),
+      bottomNavigationBar: Obx(() {
+        if (controller.cartList.isEmpty) {
+          return const SizedBox.shrink();
+        }
+        return Container(
+          padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: [BoxShadow(blurRadius: 8, color: Colors.black12)],
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Tổng tiền"),
+                    Text(
+                      "${controller.priceFormatter.format(controller.totalPrice.value)}đ",
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              ElevatedButton(
+                onPressed: () {
+                  // Thanh toán
+                },
+                child: const Text("Thanh toán"),
+              ),
+            ],
+          ),
         );
       }),
     );

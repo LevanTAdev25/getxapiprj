@@ -50,18 +50,20 @@ class LoginController extends GetxController {
       final user = Login(usernameController.text, passwordController.text);
       await _loginUseCase(user);
       loginSuccess(true);
-    } on UnauthorizedException {
+    } on UnauthorizedException catch (e) {
+      final message = e.toString().replaceAll("Exception: ", "");
       Get.snackbar(
         "Đăng nhập thất bại",
-        "Tài khoản hoặc mật khẩu",
+        message,
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.redAccent.withOpacity(0.8),
         colorText: Colors.white,
       );
     } catch (e) {
+      final message = e.toString().replaceAll("Exception: ", "");
       Get.snackbar(
         "Đăng nhập thất bại",
-        e.toString(),
+        message,
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.redAccent.withOpacity(0.8),
         colorText: Colors.white,
