@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:prjgetxproduct/product/domain/entities/category.dart';
-import 'package:prjgetxproduct/product/presentation/controllers/product_controller.dart';
+import 'package:prjgetxproduct/features/product/domain/entities/category.dart';
+import 'package:prjgetxproduct/features/product/presentation/controllers/product_controller.dart';
 
 class BaseForm extends GetView<ProductController> {
-  bool baseFormState;
+  final bool baseFormState;
   BaseForm({super.key, required this.baseFormState});
   @override
   Widget build(BuildContext context) {
