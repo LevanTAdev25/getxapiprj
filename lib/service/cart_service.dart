@@ -22,9 +22,7 @@ class CartService extends GetxService {
 
   Future<void> decreaseCart(CartModel cartModel) async {
     final current = cartBox.get(cartModel.id);
-    if (current == null) {
-      await cartBox.put(cartModel.id, cartModel);
-    } else {
+    if (current != null) {
       if (current.quantity == 1) {
         await cartBox.delete(current.id);
       } else {
@@ -38,9 +36,7 @@ class CartService extends GetxService {
 
   Future<void> increaseCart(CartModel cartModel) async {
     final current = cartBox.get(cartModel.id);
-    if (current == null) {
-      await cartBox.put(cartModel.id, cartModel);
-    } else {
+    if (current != null) {
       if (current.quantity < current.stock) {
         await cartBox.put(
           current.id,
