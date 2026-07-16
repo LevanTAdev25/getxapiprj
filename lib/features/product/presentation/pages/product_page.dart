@@ -104,32 +104,6 @@ class ProductPage extends GetView<ProductController> {
           SizedBox(
             height: 45,
             child: Obx(() {
-              // return Container(
-              //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              //   color: Colors.white,
-              //   child: DropdownButtonHideUnderline(
-              //     child: DropdownButton<Category?>(
-              //       value: controller.selectedCategory.value,
-              //       isExpanded: true,
-              //       items: [
-              //         const DropdownMenuItem<Category?>(
-              //           value: null,
-              //           child: Text("Tất cả"),
-              //         ),
-              //         ...controller.categoriesList.map((category) {
-              //           return DropdownMenuItem<Category?>(
-              //             value: category,
-              //             child: Text(category.name),
-              //           );
-              //         }),
-              //       ],
-              //       onChanged: (value) {
-              //         controller.selectedCategory.value = value;
-              //         controller.applyFilter();
-              //       },
-              //     ),
-              //   ),
-              // );
               return ListView(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -138,9 +112,9 @@ class ProductPage extends GetView<ProductController> {
                   _buildFilterChip(
                     title: "Tất cả",
                     isSelected: controller.selectedCategory.value == null,
-                    onTap: () {
+                    onTap: () async {
                       controller.selectedCategory.value = null;
-                      controller.applyFilter();
+                      await controller.loadProductList(reset: true);
                     },
                   ),
                   // Render danh sách các danh mục động từ controller
@@ -150,9 +124,9 @@ class ProductPage extends GetView<ProductController> {
                     return _buildFilterChip(
                       title: category.name,
                       isSelected: isSelected,
-                      onTap: () {
+                      onTap: () async {
                         controller.selectedCategory.value = category;
-                        controller.applyFilter();
+                        await controller.loadProductList();
                       },
                     );
                   }),

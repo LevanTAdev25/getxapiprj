@@ -39,19 +39,34 @@ class ProductsRemoteDatasourceImpl implements ProductsRemoteDatasource {
     try {
       final page = getPaginationParams.page;
       final limit = getPaginationParams.limit;
-      final response = await DataApi().dio.get(
-        "/products",
-        queryParameters: {"page": page, "limit": limit},
-      );
+      List<dynamic>? listProductModelFromJson;
+      if (getPaginationParams.category == null) {
+        final response = await DataApi().dio.get(
+          "/products",
+          queryParameters: {"page": page, "limit": limit},
+        );
+        listProductModelFromJson = response.data['data'];
+      } else {
+        final response = await DataApi().dio.get(
+          "/products",
+          queryParameters: {
+            "page": page,
+            "limit": limit,
+            "category_id": getPaginationParams.category!.id,
+          },
+        );
+        listProductModelFromJson = response.data['data'];
+      }
       final List<ProductModel> productList = [];
-      if (response.data['data'] != null) {
-        for (final productJson in response.data['data']) {
+      if (listProductModelFromJson != null) {
+        for (final productJson in listProductModelFromJson) {
           final productModel = ProductModel.fromJson(productJson);
           productList.add(productModel);
         }
       }
       return productList;
     } on DioException catch (e) {
+      print(e.toString());
       if (e.response?.statusCode == 401) {
         throw UnauthorizedException();
       }

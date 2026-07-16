@@ -160,15 +160,19 @@ class ProductController extends GetxController {
     isError.value = false;
     errorMessage.value = null;
     try {
+      _page = 1;
+      _hasMore = true;
+      isLoadingMore.value = false;
       if (reset) {
-        _page = 1;
-        _hasMore = true;
-        isLoadingMore.value = false;
         selectedCategory.value = null;
       }
       productList.assignAll(
         await _getProductListUseCase(
-          GetPaginationParams(page: _page, limit: _limit),
+          GetPaginationParams(
+            page: _page,
+            limit: _limit,
+            category: selectedCategory.value,
+          ),
         ),
       );
       applyFilter();
@@ -208,7 +212,11 @@ class ProductController extends GetxController {
     try {
       final nextPage = _page + 1;
       final List<Product> newProductList = await _getProductListUseCase(
-        GetPaginationParams(page: nextPage, limit: _limit),
+        GetPaginationParams(
+          page: nextPage,
+          limit: _limit,
+          category: selectedCategory.value,
+        ),
       );
       if (newProductList.isEmpty) {
         _hasMore = false;
@@ -305,7 +313,7 @@ class ProductController extends GetxController {
       final message = e.toString().replaceAll("Exception: ", "");
       Get.snackbar(
         "Thất bại",
-        "Không thể xóa sản phẩm, vui lòng kiểm tra lại kết nối mạng",
+        "Không thể xóa sản phẩm, vui lòng kiểm tra lại kết nối mạng: $message",
         backgroundColor: Colors.red,
         colorText: Colors.white,
         duration: Duration(seconds: 2),
