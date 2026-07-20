@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:prjgetxproduct/exception/unauthorized_exception.dart';
 import 'package:prjgetxproduct/features/login/domain/entities/login.dart';
 import 'package:prjgetxproduct/features/login/domain/usecases/login_usecase.dart';
+import 'package:prjgetxproduct/routes/page_app.dart';
 
 class LoginController extends GetxController {
   final LoginUseCase _loginUseCase;
@@ -46,7 +47,7 @@ class LoginController extends GetxController {
           backgroundColor: Colors.green,
           borderColor: Colors.white,
         );
-        Get.offAndToNamed("/products");
+        Get.offAndToNamed(AppPage.PRODUCTS);
         loginSuccess(false);
       }
     } on UnauthorizedException catch (e) {
