@@ -5,19 +5,28 @@ import 'package:prjgetxproduct/service/auth_service.dart';
 import 'package:prjgetxproduct/service/cart_service.dart';
 
 class BaseUnauthorized {
-  static void handleUnauthorized() async {
-    final authService = Get.find<AuthService>();
-    final cartService = Get.find<CartService>();
-    await authService.clearToken();
-    await cartService.clearCart();
-    Get.snackbar(
-      "Phiên đăng nhập hết hạn",
-      "Vui lòng đăng nhập lại",
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: Colors.orangeAccent.withOpacity(0.9),
-      colorText: Colors.white,
-      duration: const Duration(seconds: 2),
-    );
-    Get.offAllNamed(AppPage.LOGIN);
+  static bool _isHandling = false;
+  static Future<void> handleUnauthorized() async {
+    if (_isHandling) return;
+    _isHandling = true;
+    try {
+      final authService = Get.find<AuthService>();
+      final cartService = Get.find<CartService>();
+
+      await authService.clearToken();
+      await cartService.clearCart();
+
+      Get.snackbar(
+        "Phiên đăng nhập hết hạn",
+        "Vui lòng đăng nhập lại",
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.orangeAccent.withOpacity(0.9),
+        colorText: Colors.white,
+      );
+
+      Get.offAllNamed(AppPage.LOGIN);
+    } finally {
+      _isHandling = false;
+    }
   }
 }

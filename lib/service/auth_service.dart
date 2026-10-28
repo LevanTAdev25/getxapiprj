@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:prjgetxproduct/login/data/models/login_model.dart';
+import 'package:prjgetxproduct/features/login/data/models/login_model.dart';
 
 class AuthService extends GetxService {
   late Box<LoginModel> _authBox;
