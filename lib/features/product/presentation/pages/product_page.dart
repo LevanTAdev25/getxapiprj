@@ -189,7 +189,7 @@ class ProductPage extends GetView<ProductController> {
                   children: [
                     GridView.builder(
                       controller: controller.scrollController,
-                      physics: BouncingScrollPhysics(),
+                      physics: const AlwaysScrollableScrollPhysics(),
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,

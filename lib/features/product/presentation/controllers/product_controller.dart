@@ -83,6 +83,7 @@ class ProductController extends GetxController {
     stockEditingController.dispose();
     descriptionEditingController.dispose();
     imageEditingController.dispose();
+    scrollController.removeListener(_onScroll);
     scrollController.dispose();
     searchController.dispose();
     nameProductFocusNode.dispose();
@@ -151,7 +152,10 @@ class ProductController extends GetxController {
     _page = 1;
     _hasMore = true;
     isLoadingMore.value = false;
-
+    if (selectedCategory.value != null) {
+      await loadProductList();
+      return;
+    }
     await loadProductList(reset: true);
   }
 
@@ -396,6 +400,6 @@ class ProductController extends GetxController {
       backgroundColor: Colors.green,
       colorText: Colors.white,
     );
-    Get.offAllNamed(AppPage.PRODUCTS);
+    Get.offAllNamed(AppPage.LOGIN);
   }
 }

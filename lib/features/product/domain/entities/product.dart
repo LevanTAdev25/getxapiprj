@@ -1,5 +1,6 @@
 import 'package:prjgetxproduct/features/product/data/models/product_model.dart';
 import 'package:prjgetxproduct/features/product/domain/entities/category.dart';
+import 'package:prjgetxproduct/features/product/mapper/category_mapper.dart';
 
 class Product {
   int id;
@@ -27,7 +28,7 @@ class Product {
       productModel.code,
       productModel.price,
       productModel.stock,
-      Category.mapToCategory(productModel.categoryModel),
+      CategoryMapper.mapToCategory(productModel.categoryModel),
       productModel.description,
       productModel.image,
     );

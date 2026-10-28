@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:prjgetxproduct/features/cart/domain/entities/cart.dart';
 import 'package:prjgetxproduct/features/cart/domain/usecase/cart_usecase_src.dart';
-import 'package:prjgetxproduct/features/product/presentation/controllers/product_controller.dart';
 
 class CartController extends GetxController {
   final cartList = <Cart>[].obs;

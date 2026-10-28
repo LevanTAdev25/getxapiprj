@@ -7,6 +7,7 @@ import 'package:prjgetxproduct/features/product/data/models/product_model.dart';
 import 'package:prjgetxproduct/features/product/domain/entities/category.dart';
 import 'package:prjgetxproduct/features/product/domain/entities/product.dart';
 import 'package:prjgetxproduct/features/product/domain/repositories/product_repository.dart';
+import 'package:prjgetxproduct/features/product/mapper/category_mapper.dart';
 
 class ProductRepositoryImpl extends ProductRepository {
   final ProductsRemoteDatasource _productsRemoteDatasource;
@@ -49,7 +50,7 @@ class ProductRepositoryImpl extends ProductRepository {
     final List<CategoryModel> listCategoryModel =
         await _productsRemoteDatasource.getCategoriesList();
     final List<Category> listCategory = listCategoryModel
-        .map((categoryModel) => Category.mapToCategory(categoryModel))
+        .map((categoryModel) => CategoryMapper.mapToCategory(categoryModel))
         .toList();
     return listCategory;
   }
